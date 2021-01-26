@@ -7,6 +7,7 @@ import android.widget.Toast
 import com.example.sqlite_demo.DBHelper
 import com.example.sqlite_demo.Person
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,19 +20,12 @@ class MainActivity : AppCompatActivity() {
 
         db = DBHelper(this)
 
-//        val personAdd = Person(
-//            Integer.parseInt("1"),
-//            "edward",
-//            "password",
-//            false
-//        )
-//        db.addPerson(personAdd)
 
-
-        if( db.check_user_login()){
+        if(db.check_user_login()){
             val intent = Intent(this, HomePage::class.java)
             startActivity(intent)
         }
+
 
 
         btn_login.setOnClickListener {
@@ -51,5 +45,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+
+        btn_register.setOnClickListener {
+            val personAdd = Person(
+            Integer.parseInt("1"),
+            edt_register_username.text.toString(),
+            edt_register_password.text.toString(),
+            false)
+
+            db.addPerson(personAdd)
+            Toast.makeText(this, "User Created / Please Login", Toast.LENGTH_SHORT).show()
+        }
     }
 }

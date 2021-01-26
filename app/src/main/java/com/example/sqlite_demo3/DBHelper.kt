@@ -104,7 +104,9 @@ class DBHelper(context: Context):SQLiteOpenHelper(context, DATABASE_NAME, null, 
         val db = this.writableDatabase
         val id = 1
         val cursor:Cursor = db.rawQuery("SELECT * FROM $TABLE_NAME WHERE $COL_ID = '$id'", null)
-        cursor.moveToFirst()
+
+        if (!cursor.moveToFirst()) { return false }
+
         val db_username = cursor.getString(cursor.getColumnIndex(COL_USERNAME))
         val db_pw = cursor.getString(cursor.getColumnIndex(COL_PASSWORD))
 
@@ -125,7 +127,7 @@ class DBHelper(context: Context):SQLiteOpenHelper(context, DATABASE_NAME, null, 
         val db = this.writableDatabase
         val id = 1
         val cursor:Cursor = db.rawQuery("SELECT * FROM $TABLE_NAME WHERE $COL_ID = '$id'", null)
-        cursor.moveToFirst()
+        if (!cursor.moveToFirst()) { return false }
 //        val db_username = cursor.getString(cursor.getColumnIndex(COL_USERNAME))
 //        val db_pw = cursor.getString(cursor.getColumnIndex(COL_PASSWORD))
 
